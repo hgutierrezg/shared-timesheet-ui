@@ -15,28 +15,28 @@ import java.util.List;
 @AllArgsConstructor
 public class SharedTimesheetController {
 
-    private final TimesheetRestService timesheetService;
+    private final TimesheetRestService timesheetRestService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TimesheetDto>> getAllTimesheets() {
-        return ResponseEntity.ok(timesheetService.getTimesheets());
+        return ResponseEntity.ok(timesheetRestService.getTimesheets());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createTimesheet(@RequestBody TimesheetDto timesheetDto) {
-        Long id = timesheetService.createTimesheet(timesheetDto);
+        Long id = timesheetRestService.createTimesheet(timesheetDto);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateTimesheet(@RequestBody TimesheetDto timesheetDto) {
-        timesheetService.updateTimesheet(timesheetDto);
+        timesheetRestService.updateTimesheet(timesheetDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTimesheet(@PathVariable Long id) {
-        timesheetService.deleteTimesheet(id);
+        timesheetRestService.deleteTimesheet(id);
         return ResponseEntity.ok().build();
     }
 }
