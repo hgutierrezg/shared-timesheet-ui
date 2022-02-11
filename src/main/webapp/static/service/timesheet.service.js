@@ -4,9 +4,9 @@ angular
     .module('sharedTimesheetApp')
     .service('timesheetService', timesheetService);
 
-timesheetService.$inject = ['$http'];
+timesheetService.$inject = ['$http', '$log'];
 
-function timesheetService($http) {
+function timesheetService($http, $log) {
 
     const HOST_URI = 'http://localhost:8080/';
     const REST_SERVICE_URI = HOST_URI + 'shared-timesheet/times/';
@@ -48,6 +48,6 @@ function timesheetService($http) {
     }
 
     function resolveError(error) {
-        console.error('Error while calling the end point ' + error);
+        $log.debug('Error while calling the end point ' + error);
     }
 }

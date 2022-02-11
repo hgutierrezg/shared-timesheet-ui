@@ -1,5 +1,5 @@
 'use strict';
-angular.module('sharedTimesheetApp').controller('DashboardController', ['timesheetService', function (timesheetService) {
+angular.module('sharedTimesheetApp').controller('DashboardController', ['timesheetService, $log', function (timesheetService, $log) {
     const dashboardController = this;
     dashboardController.userRole = 'employee';
     dashboardController.timesheets = [];
@@ -20,7 +20,7 @@ angular.module('sharedTimesheetApp').controller('DashboardController', ['timeshe
                     dashboardController.timesheets = response;
                 },
                 function () {
-                    console.error('Error while reading timesheets with error ' + errResponse);
+                    $log.debug('Error while reading timesheets with error ' + errResponse);
                 }
             );
     }
@@ -30,7 +30,7 @@ angular.module('sharedTimesheetApp').controller('DashboardController', ['timeshe
             .then(
                 getAllTimesheets,
                 function (errResponse) {
-                    console.error('Error while updating timesheet with error ' + errResponse);
+                    $log.debug('Error while updating timesheet with error ' + errResponse);
                 }
             );
     }
@@ -45,7 +45,7 @@ angular.module('sharedTimesheetApp').controller('DashboardController', ['timeshe
             .then(
                 getAllTimesheets,
                 function (errResponse) {
-                    console.error('Error while deleting timesheet with error ' + errResponse);
+                    $log.debug('Error while deleting timesheet with error ' + errResponse);
                 }
             );
     }
@@ -61,7 +61,7 @@ angular.module('sharedTimesheetApp').controller('DashboardController', ['timeshe
             .then(
                 getAllTimesheets,
                 function (errResponse) {
-                    console.error('Error while creating timesheet with error ' + errResponse);
+                    $log.debug('Error while creating timesheet with error ' + errResponse);
                 }
             );
     }
