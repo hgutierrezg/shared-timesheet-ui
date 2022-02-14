@@ -1,5 +1,6 @@
 'use strict';
-angular.module('sharedTimesheetApp').controller('DashboardController', ['timesheetService, $log', function (timesheetService, $log) {
+angular.module('sharedTimesheetApp').controller('DashboardController',
+    ['timesheetService', '$log', function (timesheetService, $log) {
     const dashboardController = this;
     dashboardController.userRole = 'employee';
     dashboardController.timesheets = [];
