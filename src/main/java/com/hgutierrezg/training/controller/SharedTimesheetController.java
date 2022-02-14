@@ -1,7 +1,7 @@
 package com.hgutierrezg.training.controller;
 
 import com.hgutierrezg.training.dto.TimesheetDto;
-import com.hgutierrezg.training.service.TimesheetRestService;
+import com.hgutierrezg.training.service.TimesheetRestManager;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,28 +15,28 @@ import java.util.List;
 @AllArgsConstructor
 public class SharedTimesheetController {
 
-    private final TimesheetRestService timesheetRestService;
+    private final TimesheetRestManager timesheetRestManager;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TimesheetDto>> getAllTimesheets() {
-        return ResponseEntity.ok(timesheetRestService.getTimesheets());
+        return ResponseEntity.ok(timesheetRestManager.getTimesheets());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createTimesheet(@RequestBody TimesheetDto timesheetDto) {
-        Long id = timesheetRestService.createTimesheet(timesheetDto);
+        Long id = timesheetRestManager.createTimesheet(timesheetDto);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateTimesheet(@RequestBody TimesheetDto timesheetDto) {
-        timesheetRestService.updateTimesheet(timesheetDto);
+        timesheetRestManager.updateTimesheet(timesheetDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTimesheet(@PathVariable Long id) {
-        timesheetRestService.deleteTimesheet(id);
+        timesheetRestManager.deleteTimesheet(id);
         return ResponseEntity.ok().build();
     }
 }

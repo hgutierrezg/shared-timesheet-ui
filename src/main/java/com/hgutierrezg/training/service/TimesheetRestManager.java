@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @PropertySource(value = {"classpath:application.properties"})
-public class TimesheetRestService {
+public class TimesheetRestManager {
 
     @Autowired
     private RestTemplate restTemplate;
