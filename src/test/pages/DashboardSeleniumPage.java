@@ -38,7 +38,7 @@ public class DashboardSeleniumPage {
 
     public DashboardSeleniumPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver,Duration.ofSeconds(40));
+        wait = new WebDriverWait(driver,Duration.ofSeconds(500L));
     }
 
     public void findEmployeeMenu() {
@@ -73,7 +73,7 @@ public class DashboardSeleniumPage {
         startDate.sendKeys("0245PM");
     }
 
-    public boolean addTimesheetInvalidDates() {
+    public boolean addTimesheetWithInvalidDates() {
         startDate.sendKeys("invalidDate2");
         endDate.sendKeys("invalidDate2");
         return addBtnId.isEnabled();

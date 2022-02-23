@@ -48,6 +48,6 @@ public class SeleniumTest {
         dashboardSeleniumPage.findEmployeeMenu();
 
         Assert.assertTrue(dashboardSeleniumPage.displayFormControls());
-        Assert.assertFalse(dashboardSeleniumPage.addTimesheetInvalidDates());
+        Assert.assertFalse(dashboardSeleniumPage.addTimesheetWithInvalidDates());
     }
 }
