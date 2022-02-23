@@ -13,6 +13,7 @@ public class ChromeSeleniumConfig {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(false);
+        options.addArguments("start-maximized");
         driver = new ChromeDriver(options);
     }
 
