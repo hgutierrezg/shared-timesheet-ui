@@ -6,6 +6,8 @@ angular.module('sharedTimesheetApp').controller('DashboardController',
     dashboardController.timesheets = [];
     dashboardController.timesheet = {startDate: '', endDate: '', client: ''};
 
+    dashboardController.displayError = false;
+
     dashboardController.submit = submit;
     dashboardController.reset = reset;
     dashboardController.approve = approve;
@@ -26,7 +28,12 @@ angular.module('sharedTimesheetApp').controller('DashboardController',
             );
     }
 
-    function updateTimesheet(timesheet, id) {
+        function resetErrors() {
+            dashboardController.displayError = false;
+        }
+
+        function updateTimesheet(timesheet, id) {
+        resetErrors();
         timesheetService.updateTimesheet(timesheet, id)
             .then(
                 getAllTimesheets,
@@ -37,11 +44,13 @@ angular.module('sharedTimesheetApp').controller('DashboardController',
     }
 
     function approve(timesheet) {
+        resetErrors();
         timesheet.approved = true;
         updateTimesheet(timesheet);
     }
 
     function deleteTimesheet(timesheet) {
+        resetErrors();
         timesheetService.deleteTimesheet(timesheet.id)
             .then(
                 getAllTimesheets,
@@ -56,15 +65,11 @@ angular.module('sharedTimesheetApp').controller('DashboardController',
     }
 
     function createTimesheet(timesheet) {
+        resetErrors();
         timesheet.startDate = new Date(timesheet.startDate).toLocaleString("sv-SE");
         timesheet.endDate = new Date(timesheet.endDate).toLocaleString("sv-SE");
         timesheetService.createTimesheet(timesheet)
-            .then(
-                getAllTimesheets,
-                function (errResponse) {
-                    $log.debug('Error while creating timesheet with error ' + errResponse);
-                }
-            );
+            .then(getAllTimesheets, displayError);
     }
 
     function submit() {
@@ -78,5 +83,10 @@ angular.module('sharedTimesheetApp').controller('DashboardController',
             endDate: '',
             client: ''
         };
+    }
+
+    function displayError(response) {
+        console.log('response ' + response)
+        dashboardController.displayError = true;
     }
 }]);

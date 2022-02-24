@@ -58,6 +58,11 @@
                     <section id="timesheetFormId">
                         <h3><small>Create new timesheet</small></h3>
                         <hr>
+
+                        <div ng-if="dashboardController.displayError === true" class="alert alert-danger" role="alert" id="displayErrorId">
+                            There was an error creating the form
+                        </div>
+
                         <form class="form-inline my-2 my-lg-0" ng-submit="dashboardController.submit()"
                               name="createForm">
                             <div class="form-group">

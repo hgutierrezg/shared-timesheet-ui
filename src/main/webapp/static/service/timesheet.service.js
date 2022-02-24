@@ -26,8 +26,7 @@ function timesheetService($http, $log) {
 
     function createTimesheet(timesheet) {
         return $http.post(REST_SERVICE_URI, timesheet)
-            .then(resolveSuccess)
-            .catch(resolveError);
+            .then(resolveSuccess, resolveError);
     }
 
     function updateTimesheet(timesheet) {
@@ -47,7 +46,8 @@ function timesheetService($http, $log) {
         return Promise.resolve(response.data);
     }
 
-    function resolveError(error) {
-        $log.debug('Error while calling the end point ' + error);
+    function resolveError(response) {
+        $log.error('Error while calling the end point ' + error);
+        return response;
     }
 }

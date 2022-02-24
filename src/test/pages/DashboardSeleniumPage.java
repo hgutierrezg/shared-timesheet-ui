@@ -28,8 +28,14 @@ public class DashboardSeleniumPage {
     @FindBy(id = "endDate")
     private WebElement endDate;
 
+    @FindBy(id = "client")
+    private WebElement client;
+
     @FindBy(id = "addBtnId")
     private WebElement addBtnId;
+
+    @FindBy(id = "displayErrorId")
+    private WebElement displayErrorId;
 
     @FindBy(id = "timesheetListSectionId")
     private WebElement timesheetListSectionId;
@@ -61,6 +67,7 @@ public class DashboardSeleniumPage {
         if (timesheetFormSection.isDisplayed()) {
             addDateTime(startDate, "09252021");
             addDateTime(endDate, "10022021");
+            client.sendKeys("TestClient");
         }
         addBtnId.submit();
        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("timesheetListSectionId")));
@@ -77,5 +84,16 @@ public class DashboardSeleniumPage {
         startDate.sendKeys("invalidDate2");
         endDate.sendKeys("invalidDate2");
         return addBtnId.isEnabled();
+    }
+
+    public boolean displayErrorWhenEmptyClient() {
+        if (timesheetFormSection.isDisplayed()) {
+            addDateTime(startDate, "09252021");
+            addDateTime(endDate, "10022021");
+            client.sendKeys("");
+        }
+        addBtnId.submit();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("displayErrorId")));
+        return displayErrorId.isDisplayed();
     }
 }

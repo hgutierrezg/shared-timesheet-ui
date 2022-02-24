@@ -2,6 +2,7 @@ import config.ChromeSeleniumConfig;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.LoginSeleniumPage;
 
@@ -25,9 +26,13 @@ public class SeleniumTest {
         chromeSeleniumConfig.close();
     }
 
+    @BeforeTest
+    public void beforeEach() {
+        loginSeleniumPage.doLogin();
+    }
+
     @Test
     public void givenUserInLoginPage_whenEnterCredentials_thenNewRecordIsAdded() {
-        loginSeleniumPage.doLogin();
         dashboardSeleniumPage.findEmployeeMenu();
 
         Assert.assertTrue(dashboardSeleniumPage.displayFormControls());
@@ -36,7 +41,6 @@ public class SeleniumTest {
 
     @Test
     public void givenUserInLoginPage_whenEnterCredentials_thenExternalManagerDoesNotCreate() {
-        loginSeleniumPage.doLogin();
         dashboardSeleniumPage.findExternalManagerMenu();
 
         Assert.assertFalse(dashboardSeleniumPage.displayFormControls());
@@ -44,10 +48,17 @@ public class SeleniumTest {
 
     @Test
     public void givenUserInDashboardPage_whenUserAddsInvalidValidDate_thenAddButtonNotEnabled() {
-        loginSeleniumPage.doLogin();
         dashboardSeleniumPage.findEmployeeMenu();
 
         Assert.assertTrue(dashboardSeleniumPage.displayFormControls());
         Assert.assertFalse(dashboardSeleniumPage.addTimesheetWithInvalidDates());
+    }
+
+    @Test
+    public void givenUserInDashboardPage_whenUserAddsInvalidClient_thenErrorIsDisplayed() {
+        dashboardSeleniumPage.findEmployeeMenu();
+
+        Assert.assertTrue(dashboardSeleniumPage.displayFormControls());
+        Assert.assertTrue(dashboardSeleniumPage.displayErrorWhenEmptyClient());
     }
 }
