@@ -20,8 +20,7 @@ function timesheetService($http, $log) {
 
     function getAllTimesheets() {
         return $http.get(REST_SERVICE_URI)
-            .then(resolveSuccess)
-            .catch(resolveError);
+            .then(resolveSuccess, resolveError);
     }
 
     function createTimesheet(timesheet) {
@@ -31,14 +30,12 @@ function timesheetService($http, $log) {
 
     function updateTimesheet(timesheet) {
         return $http.put(REST_SERVICE_URI, timesheet)
-            .then(resolveSuccess)
-            .catch(resolveError);
+            .then(resolveSuccess, resolveError);
     }
 
     function deleteTimesheet(id) {
         return $http.delete(REST_SERVICE_URI + id)
-            .then(resolveSuccess)
-            .catch(resolveError);
+            .then(resolveSuccess, resolveError);
     }
 
 
@@ -47,7 +44,8 @@ function timesheetService($http, $log) {
     }
 
     function resolveError(response) {
-        $log.error('Error while calling the end point ' + error);
-        return response;
+        const error = 'Error while calling the end point ' + JSON.stringify(response.data);
+        $log.error(error);
+        throw new Error(error);
     }
 }

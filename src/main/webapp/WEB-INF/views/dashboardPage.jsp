@@ -60,7 +60,7 @@
                         <hr>
 
                         <div ng-if="dashboardController.displayError === true" class="alert alert-danger" role="alert" id="displayErrorId">
-                            There was an error creating the form
+                            {{dashboardController.errorMsg}}
                         </div>
 
                         <form class="form-inline my-2 my-lg-0" ng-submit="dashboardController.submit()"
