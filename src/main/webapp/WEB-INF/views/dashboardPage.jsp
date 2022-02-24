@@ -55,9 +55,14 @@
 
             <div class="col-sm-9">
                 <div ng-if="dashboardController.userRole == 'employee'">
-                    <section>
+                    <section id="timesheetFormId">
                         <h3><small>Create new timesheet</small></h3>
                         <hr>
+
+                        <div ng-if="dashboardController.displayError === true" class="alert alert-danger" role="alert" id="displayErrorId">
+                            {{dashboardController.errorMsg}}
+                        </div>
+
                         <form class="form-inline my-2 my-lg-0" ng-submit="dashboardController.submit()"
                               name="createForm">
                             <div class="form-group">
@@ -83,7 +88,7 @@
                                        class="form-control" placeholder="Client Name"/>
                             </div>
 
-                            <button type="submit" class="btn btn-success" ng-disabled="createForm.$invalid">Add</button>
+                            <button type="submit" class="btn btn-success" ng-disabled="createForm.$invalid" id="addBtnId">Add</button>
                             <button type="button" ng-click="dashboardController.reset()"
                                     class="btn btn-default">Reset
                             </button>
@@ -94,7 +99,7 @@
                 </div>
 
                 <div>
-                    <section>
+                    <section ng-if="dashboardController.timesheets.length > 0" id="timesheetListSectionId">
                         <h3><small>Timesheet List</small></h3>
                         <hr>
                         <div class="table-responsive">

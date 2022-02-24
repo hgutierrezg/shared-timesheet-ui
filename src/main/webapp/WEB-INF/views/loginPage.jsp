@@ -27,7 +27,7 @@
             <input type="password" id="password" name="password"
                    class="form-control" placeholder="Password" required/>
         </div>
-        <button type="submit" class="btn btn-success" ng-disabled="loginForm.$invalid">Login</button>
+        <button type="submit" class="btn btn-success" ng-disabled="loginForm.$invalid" id="loginBtnId">Login</button>
     </form>
     <br><br>
     <hr>
